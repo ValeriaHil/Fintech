@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity"
+        android:orientation="vertical">
+    <TextView
+            android:text="@string/contacts"
+            android:layout_width="match_parent"
+            android:layout_height="93dp"
+            android:id="@+id/launch_second_activity"
+            android:gravity="center"
+            android:textSize="40sp"
+            android:clickable="true"
+            android:onClick="launchSecondActivity"
+            android:focusable="true"/>
+    <ListView
+            android:id="@+id/list_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+</LinearLayout>
