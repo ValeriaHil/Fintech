@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/events"
-          android:icon="@drawable/ic_navigate_events"
-          android:title="@string/title_events"/>
+    <item
+            android:id="@+id/events"
+            android:icon="@drawable/ic_navigate_events"
+            android:title="@string/title_events"/>
 
-    <item android:id="@+id/courses"
-          android:icon="@drawable/ic_navigation_courses"
-          android:title="@string/title_courses"
-    />
-    <item   android:id="@+id/profile"
+    <item
+            android:id="@+id/courses"
+            android:icon="@drawable/ic_navigation_courses"
+            android:title="@string/title_courses"
+            />
+    <item
+            android:id="@+id/profile"
             android:icon="@drawable/ic_navigation_profile"
             android:title="@string/title_profile"
-    />
+            />
 </menu>
