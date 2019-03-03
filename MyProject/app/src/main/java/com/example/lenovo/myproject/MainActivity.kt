@@ -112,7 +112,7 @@ class MainActivity : AppCompatActivity() {
     private fun showSavingDialog() {
         val dialog = DialogSaving()
         val args = Bundle()
-        args.putString(ARG_MESSAGE, "If you leave, changes won't be saved. Do you want to leave?")
+        args.putString(ARG_MESSAGE, getString(R.string.leave_message))
         dialog.arguments = args
         dialog.show(supportFragmentManager, null)
     }

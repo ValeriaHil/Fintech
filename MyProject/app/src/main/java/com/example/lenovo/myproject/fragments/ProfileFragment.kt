@@ -13,12 +13,6 @@ import com.example.lenovo.myproject.R
 class ProfileFragment : Fragment() {
 
     companion object {
-        fun newInstance(bundle: Bundle?) {
-//            val name = bundle?.getString("NAME")
-            val fragment = ProfileFragment()
-            fragment.arguments = bundle
-        }
-
         fun newInstance(): ProfileFragment {
             return ProfileFragment()
         }

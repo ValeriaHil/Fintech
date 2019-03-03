@@ -13,6 +13,7 @@
             android:layout_weight="1"
             android:layout_gravity="center_vertical|center_horizontal"
             android:textAppearance="?android:attr/textAppearanceLarge"/>
+
     <android.support.design.widget.TextInputEditText
             android:id="@+id/te_first_name"
             android:layout_width="match_parent"
@@ -20,6 +21,7 @@
             android:layout_weight="1"
             android:layout_gravity="center_vertical|center_horizontal"
             android:textAppearance="?android:attr/textAppearanceLarge"/>
+
     <android.support.design.widget.TextInputEditText
             android:id="@+id/te_patronymic"
             android:layout_width="match_parent"
@@ -27,27 +29,33 @@
             android:layout_weight="1"
             android:layout_gravity="center_vertical|center_horizontal"
             android:textAppearance="?android:attr/textAppearanceLarge"/>
-    <LinearLayout android:layout_width="match_parent" android:layout_height="0dp"
-    android:layout_weight="1">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
         <TextView
                 android:id="@+id/tv_saving"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:layout_gravity="center_vertical|center_horizontal"
-                android:text="Save"
+                android:text="@string/save_button"
                 android:gravity="center"
                 android:onClick="onSaveButtonClicked"
                 android:textAppearance="?android:attr/textAppearanceLarge"/>
+
         <TextView
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:layout_height="match_parent"
-                android:text="Cancel"
+                android:text="@string/cancel_button"
                 android:onClick="onCancelButtonClicked"
                 android:textAppearance="?android:attr/textAppearanceLarge"/>
     </LinearLayout>
+
     <TextView
             android:layout_width="match_parent"
             android:layout_height="0dp"

@@ -13,6 +13,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:textAppearance="?android:attr/textAppearanceLarge"/>
+
     <TextView
             android:id="@+id/tv_first_name"
             android:layout_width="match_parent"
@@ -20,6 +21,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:textAppearance="?android:attr/textAppearanceLarge"/>
+
     <TextView
             android:id="@+id/tv_patronymic"
             android:layout_width="match_parent"
@@ -27,6 +29,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:textAppearance="?android:attr/textAppearanceLarge"/>
+
     <TextView
             android:id="@+id/tv_editing"
             android:layout_width="match_parent"
@@ -35,7 +38,8 @@
             android:text="@string/edit_button"
             android:onClick="onEditButtonClicked"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:layout_marginLeft="?attr/listPreferredItemPaddingLeft"/>
+            android:layout_marginStart="?attr/listPreferredItemPaddingLeft"/>
+
     <TextView
             android:layout_width="match_parent"
             android:layout_height="0dp"

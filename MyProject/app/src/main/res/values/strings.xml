@@ -1,15 +1,18 @@
 <resources>
     <string name="app_name">MyProject</string>
-    <string name="title_events">Events</string>
-    <string name="title_courses">My courses</string>
-    <string name="title_profile">Profile</string>
-    <string name="stay_button">Stay</string>
-    <string name="leave_button">Leave</string>
+    <string name="title_events">Мероприятия</string>
+    <string name="title_courses">Мои курсы</string>
+    <string name="title_profile">Профиль</string>
+    <string name="stay_button">Остаться</string>
+    <string name="leave_button">Уйти</string>
     <string name="default_first_name">Валерия</string>
     <string name="default_last_name">Гиль</string>
     <string name="default_patronymic">Александровна</string>
     <string name="preference_first_name_key">FIRST NAME</string>
     <string name="preference_last_name_key">LAST NAME</string>
     <string name="preference_patronymic_key">PATRONYMIC</string>
-    <string name="edit_button">Edit</string>
+    <string name="edit_button">Редактировать</string>
+    <string name="cancel_button">Отменить</string>
+    <string name="save_button">Сохранить</string>
+    <string name="leave_message">Если уйти с экрана редактирования, изменения не сохраняться. Уйти?</string>
 </resources>
