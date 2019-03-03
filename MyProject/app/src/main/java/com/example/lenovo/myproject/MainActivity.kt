@@ -53,12 +53,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setPreferences() {
-        getPreferences(Context.MODE_PRIVATE).edit()
-            .putString(getString(R.string.preference_first_name_key), getString(R.string.default_first_name)).apply()
-        getPreferences(Context.MODE_PRIVATE).edit()
-            .putString(getString(R.string.preference_last_name_key), getString(R.string.default_last_name)).apply()
-        getPreferences(Context.MODE_PRIVATE).edit()
-            .putString(getString(R.string.preference_patronymic_key), getString(R.string.default_patronymic)).apply()
+        SPHandler.sharedPreferences = getPreferences(Context.MODE_PRIVATE)
+        SPHandler.setPreferences(this)
     }
 
     private fun setToolbar() {
