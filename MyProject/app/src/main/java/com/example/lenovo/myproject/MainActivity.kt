@@ -5,12 +5,12 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
-import android.view.View
 import android.widget.EditText
 import com.example.lenovo.myproject.dialogs.DialogSaving
 import com.example.lenovo.myproject.fragments.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), ProfileFragment.ProfileListener,
+    ProfileEditingFragment.ProfileEditingListener, DialogSaving.DialogSavingListener {
 
     companion object {
         const val ARG_MESSAGE = "ARG_MESSAGE"
@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.title = resources.getString(R.string.title_events)
     }
 
-    fun onEditButtonClicked(view: View?) {
+    override fun onEditProfileButtonClicked() {
         supportFragmentManager.beginTransaction()
             .replace(R.id.container, ProfileEditingFragment.newInstance())
             .addToBackStack("profile_editing")
@@ -71,7 +71,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         if (supportFragmentManager.backStackEntryCount > 0) {
-            if (!checkChanges()) {
+            if (!dataChanged()) {
                 supportFragmentManager.popBackStack()
             } else {
                 showSavingDialog()
@@ -81,24 +81,21 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun onSaveButtonClicked(view: View?) {
-        getPreferences(Context.MODE_PRIVATE).edit().putString(
-            getString(R.string.preference_first_name_key),
-            findViewById<EditText>(R.id.te_first_name).text.toString()
-        ).apply()
-        getPreferences(Context.MODE_PRIVATE).edit().putString(
-            getString(R.string.preference_last_name_key),
-            findViewById<EditText>(R.id.te_last_name).text.toString()
-        ).apply()
-        getPreferences(Context.MODE_PRIVATE).edit().putString(
-            getString(R.string.preference_patronymic_key),
-            findViewById<EditText>(R.id.te_patronymic).text.toString()
-        ).apply()
+    override fun onSaveProfileEditingButtonClicked() {
+        onSaveProfileEditingButtonClicked(R.id.te_first_name, R.string.preference_first_name_key)
+        onSaveProfileEditingButtonClicked(R.id.te_last_name, R.string.preference_last_name_key)
+        onSaveProfileEditingButtonClicked(R.id.te_patronymic, R.string.preference_patronymic_key)
         loadFragment(ProfileFragment.newInstance())
     }
 
-    fun onCancelButtonClicked(view: View?) {
-        if (!checkChanges()) {
+    private fun onSaveProfileEditingButtonClicked(viewId: Int, stringId: Int) {
+        val view = findViewById<EditText>(viewId)
+        val keyWord = getString(stringId)
+        SPHandler.setPreferences(view, keyWord)
+    }
+
+    override fun onCancelProfileEditingButtonClicked() {
+        if (!dataChanged()) {
             loadFragment(ProfileFragment.newInstance())
         } else {
             showSavingDialog()
@@ -113,28 +110,20 @@ class MainActivity : AppCompatActivity() {
         dialog.show(supportFragmentManager, null)
     }
 
-    private fun checkChanges(): Boolean {
-        if (findViewById<EditText>(R.id.te_first_name).text.toString() != getPreferences(Context.MODE_PRIVATE)?.getString(
-                getString(R.string.preference_first_name_key),
-                getString(R.string.default_first_name)
-            )
-        ) {
-            return true
-        }
-        if (findViewById<EditText>(R.id.te_last_name).text.toString() != getPreferences(Context.MODE_PRIVATE)?.getString(
-                getString(R.string.preference_last_name_key),
-                getString(R.string.default_last_name)
-            )
-        ) {
-            return true
-        }
-        if (findViewById<EditText>(R.id.te_patronymic).text.toString() != getPreferences(Context.MODE_PRIVATE)?.getString(
-                getString(R.string.preference_patronymic_key),
-                getString(R.string.default_patronymic)
-            )
-        ) {
-            return true
-        }
-        return false
+    override fun onLeaveDialogSavingButtonClicked() {
+        loadFragment(ProfileFragment.newInstance())
+    }
+
+
+    private fun dataChanged(): Boolean {
+        return dataChanged(R.id.te_first_name, R.string.preference_first_name_key) ||
+                dataChanged(R.id.te_last_name, R.string.preference_last_name_key) ||
+                dataChanged(R.id.te_patronymic, R.string.preference_patronymic_key)
+    }
+
+    private fun dataChanged(viewId: Int, stringId: Int): Boolean {
+        val view = findViewById<EditText>(viewId)
+        val keyWord = getString(stringId)
+        return SPHandler.isDataChanged(view, keyWord)
     }
 }

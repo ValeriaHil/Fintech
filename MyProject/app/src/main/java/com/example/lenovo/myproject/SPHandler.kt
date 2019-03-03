@@ -23,8 +23,16 @@ class SPHandler {
             )?.apply()
         }
 
+        fun setPreferences(view: TextView?, keyWord: String) {
+            sharedPreferences?.edit()?.putString(keyWord, view?.text.toString())?.apply()
+        }
+
         fun setData(view: TextView?, keyWord: String) {
             view?.text = sharedPreferences?.getString(keyWord, "")
+        }
+
+        fun isDataChanged(view: TextView?, keyWord: String) : Boolean {
+            return view?.text.toString() != sharedPreferences?.getString(keyWord, "")
         }
     }
 }

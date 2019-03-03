@@ -43,16 +43,15 @@
                 android:layout_gravity="center_vertical|center_horizontal"
                 android:text="@string/save_button"
                 android:gravity="center"
-                android:onClick="onSaveButtonClicked"
                 android:textAppearance="?android:attr/textAppearanceLarge"/>
 
         <TextView
+                android:id="@+id/tv_cancel"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:layout_height="match_parent"
                 android:text="@string/cancel_button"
-                android:onClick="onCancelButtonClicked"
                 android:textAppearance="?android:attr/textAppearanceLarge"/>
     </LinearLayout>
 
