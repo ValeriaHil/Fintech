@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="8dp">
+
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.constraint.Guideline
+            android:id="@+id/left_indent_line"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.03" />
+
+        <TextView
+            android:id="@+id/tv_rating"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="center_vertical|start"
+            android:padding="8dp"
+            android:text="@string/tittle_rating"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/line_3"
+            app:layout_constraintEnd_toStartOf="@id/line_1"
+            app:layout_constraintStart_toStartOf="@+id/left_indent_line"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_rating_details"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="center_vertical|end"
+            android:padding="8dp"
+            android:text="@string/title_details"
+            android:textColor="@color/colorPrimary"
+            app:layout_constraintBottom_toTopOf="@+id/line_3"
+            app:layout_constraintEnd_toStartOf="@id/right_indent_line"
+            app:layout_constraintStart_toEndOf="@+id/line_1"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_weight="1" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/right_indent_line"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.97" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/line_3"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.17" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/line_1"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.4" />
+
+        <TextView
+            android:id="@+id/tv_common_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:gravity="center_vertical"
+            android:text="@string/title_common_rating"
+            app:layout_constraintBottom_toTopOf="@+id/tv_tests_accepted"
+            app:layout_constraintEnd_toStartOf="@id/iv_common_rating_icon"
+            app:layout_constraintHorizontal_weight="2"
+            app:layout_constraintStart_toStartOf="@+id/line_1"
+            app:layout_constraintTop_toBottomOf="@+id/line_3"
+            app:layout_constraintVertical_weight="1" />
+
+        <TextView
+            android:id="@+id/tv_tests_accepted"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:gravity="center_vertical"
+            android:text="@string/title_tests_accepted"
+            app:layout_constraintBottom_toTopOf="@id/tv_homework_done"
+            app:layout_constraintEnd_toStartOf="@id/tv_tests_accepted_count"
+            app:layout_constraintHorizontal_weight="3"
+            app:layout_constraintStart_toStartOf="@+id/line_1"
+            app:layout_constraintTop_toBottomOf="@+id/tv_common_rating"
+            app:layout_constraintVertical_weight="1" />
+
+        <TextView
+            android:id="@+id/tv_homework_done"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:gravity="center_vertical"
+            android:text="@string/title_homeworks_done"
+            app:layout_constraintBottom_toTopOf="@id/line_2"
+            app:layout_constraintEnd_toStartOf="@id/tv_homework_done_count"
+            app:layout_constraintHorizontal_weight="3"
+            app:layout_constraintStart_toEndOf="@id/line_1"
+            app:layout_constraintTop_toBottomOf="@+id/tv_tests_accepted"
+            app:layout_constraintVertical_weight="1" />
+
+        <TextView
+            android:id="@+id/tv_common_rating_count"
+            style="@style/TextAppearance.AppCompat.Title"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="center_vertical|end"
+            android:text="@string/default_common_rating"
+            app:layout_constraintBottom_toTopOf="@id/tv_tests_accepted_count"
+            app:layout_constraintEnd_toStartOf="@id/right_indent_line"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@id/iv_common_rating_icon"
+            app:layout_constraintTop_toBottomOf="@id/line_3"
+            app:layout_constraintVertical_weight="1" />
+
+        <TextView
+            android:id="@+id/tv_tests_accepted_count"
+            style="@style/TextAppearance.AppCompat.Title"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="center_vertical|end"
+            android:text="@string/default_tests_cnt"
+            app:layout_constraintBottom_toTopOf="@id/tv_homework_done_count"
+            app:layout_constraintEnd_toStartOf="@id/right_indent_line"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@id/tv_tests_accepted"
+            app:layout_constraintTop_toBottomOf="@id/tv_common_rating_count"
+            app:layout_constraintVertical_weight="1" />
+
+        <TextView
+            android:id="@+id/tv_homework_done_count"
+            style="@style/TextAppearance.AppCompat.Title"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="center_vertical|end"
+            android:text="@string/default_hw_cnt"
+            app:layout_constraintBottom_toTopOf="@id/line_2"
+            app:layout_constraintEnd_toStartOf="@id/right_indent_line"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@id/tv_homework_done"
+            app:layout_constraintTop_toBottomOf="@id/tv_tests_accepted_count"
+            app:layout_constraintVertical_weight="1" />
+
+        <ImageView
+            android:id="@+id/iv_common_rating_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/icon_rating_description"
+            android:padding="4dp"
+            android:src="@drawable/ic_common_rating"
+            app:layout_constraintBottom_toTopOf="@+id/tv_tests_accepted"
+            app:layout_constraintEnd_toStartOf="@id/tv_common_rating_count"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@id/tv_common_rating"
+            app:layout_constraintTop_toBottomOf="@id/line_3"
+            app:layout_constraintVertical_weight="1" />
+
+        <TextView
+            android:id="@+id/tv_my_score"
+            style="@style/TextAppearance.AppCompat.Headline"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="bottom|center"
+            android:text="@string/default_scores"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/tv_scores"
+            app:layout_constraintEnd_toStartOf="@id/line_1"
+            app:layout_constraintStart_toEndOf="@id/left_indent_line"
+            app:layout_constraintTop_toBottomOf="@id/line_3"
+            app:layout_constraintVertical_weight="1" />
+
+        <TextView
+            android:id="@+id/tv_scores"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="top|center"
+            android:text="@string/title_scores"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toTopOf="@id/line_2"
+            app:layout_constraintEnd_toStartOf="@id/line_1"
+            app:layout_constraintStart_toEndOf="@id/left_indent_line"
+            app:layout_constraintTop_toBottomOf="@id/tv_my_score"
+            app:layout_constraintVertical_weight="1" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/line_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <TextView
+            android:id="@+id/tv_lessons_cnt"
+            style="@style/TextAppearance.AppCompat.Headline"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="bottom"
+            android:text="@string/title_20_lessons"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/separator_lessons_cnt"
+            app:layout_constraintEnd_toStartOf="@id/right_indent_line"
+            app:layout_constraintStart_toEndOf="@id/left_indent_line"
+            app:layout_constraintTop_toBottomOf="@id/line_2"
+            app:layout_constraintVertical_weight="2" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/separator_lessons_cnt"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.65" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:progress="50"
+            app:layout_constraintEnd_toEndOf="@id/right_indent_line"
+            app:layout_constraintStart_toStartOf="@id/left_indent_line"
+            app:layout_constraintTop_toBottomOf="@id/tv_lessons_cnt" />
+
+        <TextView
+            android:id="@+id/tv_done"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:gravity="center_vertical"
+            android:text="@string/title_gone"
+            app:layout_constraintBottom_toTopOf="@id/tv_done_cnt"
+            app:layout_constraintEnd_toStartOf="@id/tv_left"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@id/left_indent_line"
+            app:layout_constraintTop_toBottomOf="@id/progressBar" />
+
+        <TextView
+            android:id="@+id/tv_left"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:gravity="end|center_vertical"
+            android:text="@string/title_left"
+            app:layout_constraintBottom_toTopOf="@id/tv_left_cnt"
+            app:layout_constraintEnd_toStartOf="@id/right_indent_line"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@id/tv_done"
+            app:layout_constraintTop_toBottomOf="@id/progressBar" />
+
+        <TextView
+            android:id="@+id/tv_done_cnt"
+            style="@style/TextAppearance.AppCompat.Subhead"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:text="@string/title_10_lessons"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/tv_left_cnt"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@id/left_indent_line"
+            app:layout_constraintTop_toBottomOf="@id/tv_done" />
+
+        <TextView
+            android:id="@+id/tv_left_cnt"
+            style="@style/TextAppearance.AppCompat.Subhead"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="end"
+            android:text="@string/title_10_lessons"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/right_indent_line"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@id/tv_done_cnt"
+            app:layout_constraintTop_toBottomOf="@id/tv_left" />
+    </android.support.constraint.ConstraintLayout>
+</android.support.v7.widget.CardView>
+
