@@ -22,13 +22,13 @@ class Worker : IntentService("Worker") {
     private fun getAll(): ArrayList<String> {
         val result = ArrayList<String>()
         val cursor = contentResolver.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, null, null, null)
-        if (cursor != null) {
-            while (cursor.moveToNext()) {
-                val name = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME))
-                result.add(name)
+            cursor?.use {
+                val column = cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME)
+                while (cursor.moveToNext()) {
+                    val name = cursor.getString(column)
+                    result.add(name)
+                }
             }
-            cursor.close()
-        }
         return result
     }
 }

@@ -1,0 +1,44 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_for_person_in_progress_list"
+    android:layout_width="70dp"
+    android:layout_height="100dp">
+
+    <com.example.lenovo.myproject.customview.UserImage
+        android:id="@+id/image"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_margin="4dp"
+        android:padding="2dp" />
+
+    <TextView
+        android:id="@+id/badge_scores"
+        android:layout_width="30dp"
+        android:layout_height="22dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_gravity="center_horizontal"
+        android:adjustViewBounds="true"
+        android:background="@drawable/oval_green"
+        android:gravity="center"
+        android:minWidth="17sp"
+        android:minHeight="17sp"
+        android:padding="2dp"
+        android:paddingBottom="1dp"
+        android:scaleType="fitStart"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        android:visibility="visible"
+        tools:text="300" />
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="match_parent"
+        android:layout_height="18dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:layout_margin="6dp"
+        tools:text="Andrew" />
+
+</RelativeLayout>
