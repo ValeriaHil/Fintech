@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="UserImage">
+        <attr name="initials" format="string" />
+        <attr name="roundColor" format="color" />
+    </declare-styleable>
+</resources>

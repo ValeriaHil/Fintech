@@ -1,16 +1,18 @@
 package com.example.lenovo.myproject
 
 import android.content.Context
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
+import android.view.View
 import android.widget.EditText
 import com.example.lenovo.myproject.dialogs.DialogSaving
 import com.example.lenovo.myproject.fragments.*
 
 class MainActivity : AppCompatActivity(), ProfileFragment.ProfileListener,
-    ProfileEditingFragment.ProfileEditingListener, DialogSaving.DialogSavingListener {
+    ProfileEditingFragment.ProfileEditingListener, DialogSaving.DialogSavingListener, ProgressFragment.ProgressFragmentListener {
 
     companion object {
         const val ARG_MESSAGE = "ARG_MESSAGE"
@@ -112,6 +114,11 @@ class MainActivity : AppCompatActivity(), ProfileFragment.ProfileListener,
 
     override fun onLeaveDialogSavingButtonClicked() {
         loadFragment(ProfileFragment.newInstance())
+    }
+
+    override fun onProgressDetailsButtonClicked() {
+        val intent = Intent(this, DetailsActivity::class.java)
+        startActivity(intent)
     }
 
 
