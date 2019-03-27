@@ -7,10 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.lenovo.myproject.R
 
-class PassedCourses: Fragment() {
+class PassedCoursesFragment: Fragment() {
     companion object {
-        fun newInstance(): ProfileFragment {
-            return ProfileFragment()
+        fun newInstance(): PassedCoursesFragment {
+            return PassedCoursesFragment()
         }
     }
 

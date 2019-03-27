@@ -31,7 +31,6 @@
         </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.Toolbar>
 
-
     <FrameLayout
         android:id="@+id/recycler_container"
         android:layout_width="match_parent"

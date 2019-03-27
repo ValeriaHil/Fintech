@@ -3,7 +3,6 @@ package com.example.lenovo.myproject.fragments
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v4.content.ContextCompat
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
@@ -14,7 +13,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.example.lenovo.myproject.R
 import com.example.lenovo.myproject.customview.UserImage
-import java.lang.Math.min
 import kotlin.random.Random
 
 class ContactListFragment : Fragment() {
@@ -89,20 +87,11 @@ class ContactListFragment : Fragment() {
             private val name: TextView = view.findViewById(R.id.name)
             private val scores: TextView = view.findViewById(R.id.scores)
 
-            fun bind(s: String) {
-                name.text = s
+            fun bind(name: String) {
+                this.name.text = name
                 scores.text = Random.nextInt(0, 500).toString()
-                image.setInitials(transform(s))
+                image.setInitials(UserImage.transform(name))
                 image.setRoundColor(Color.argb(255, Random.nextInt(255), Random.nextInt(255), Random.nextInt(255)))
-            }
-
-            private fun transform(s: String): String {
-                val separate = s.split(" ")
-                var res = ""
-                for (i in 0 until min(separate.size, 2)) {
-                    res += separate[i][0]
-                }
-                return res
             }
         }
     }
