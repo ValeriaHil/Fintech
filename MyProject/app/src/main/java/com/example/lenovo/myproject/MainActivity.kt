@@ -20,6 +20,7 @@ import android.widget.EditText
 import android.widget.Toast
 import com.example.lenovo.myproject.dialogs.DialogSaving
 import com.example.lenovo.myproject.fragments.*
+import java.lang.ref.WeakReference
 
 class MainActivity : AppCompatActivity(), ProfileFragment.ProfileListener,
     ProfileEditingFragment.ProfileEditingListener, DialogSaving.DialogSavingListener,
@@ -65,21 +66,16 @@ class MainActivity : AppCompatActivity(), ProfileFragment.ProfileListener,
         val progressFragment = ProgressFragment.newInstance()
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_0, progressFragment)
-            .commit()
-        supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_1, RatingFragment.newInstance())
-            .commit()
-        supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_2, PassedCoursesFragment.newInstance())
             .commit()
-        swipeRefreshLayout = findViewById<SwipeRefreshLayout>(R.id.swipe_container)
+        swipeRefreshLayout = findViewById(R.id.swipe_container)
         swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary)
 
         swipeRefreshLayout.setOnRefreshListener {
             setProgressContacts(progressFragment)
         }
     }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -166,6 +162,9 @@ class MainActivity : AppCompatActivity(), ProfileFragment.ProfileListener,
     }
 
     override fun setProgressContacts(fragment: ProgressFragment) {
+        val weakFragment = WeakReference<ProgressFragment>(fragment)
+        val weakSwipe = WeakReference<SwipeRefreshLayout>(swipeRefreshLayout)
+
         receiver = (object : BroadcastReceiver() {
             override fun onReceive(context: Context?, data: Intent?) {
                 Log.d("Main Activity", "onReceive")
@@ -177,14 +176,15 @@ class MainActivity : AppCompatActivity(), ProfileFragment.ProfileListener,
                         for (i in 0 until list.size) {
                             contacts.add(Person(list[i], scores[i] as String))
                         }
-                        fragment.updateData(contacts)
-                        swipeRefreshLayout.isRefreshing = false
+                        weakFragment.get()?.updateData(contacts)
+                        weakSwipe.get()?.isRefreshing = false
                     }
                     true
                 })
                 Async.generateScores(list.size, handler)
             }
         })
+
         val intentFilter = IntentFilter(Worker.ACTION)
         val localBroadcastManager = LocalBroadcastManager.getInstance(this)
         localBroadcastManager.registerReceiver(receiver, intentFilter)
