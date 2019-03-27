@@ -6,6 +6,9 @@
         android:layout_height="match_parent"
         tools:context=".MainActivity"
         android:orientation="vertical">
+    <fragment android:layout_width="match_parent"
+              android:layout_height="100dp"
+              android:name="com.example.lenovo.hw1.MyFragment" android:id="@+id/fr"/>
     <TextView
             android:text="@string/contacts"
             android:layout_width="match_parent"

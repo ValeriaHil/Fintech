@@ -25,6 +25,7 @@ class MainActivity : AppCompatActivity() {
     fun launchSecondActivity(view: View?) {
         Log.d(logTag, "Button clicked")
         val intent = Intent(this, SecondActivity::class.java)
+//        startActivity(intent)
         startActivityForResult(intent, CONTACT_VIEW)
     }
 
