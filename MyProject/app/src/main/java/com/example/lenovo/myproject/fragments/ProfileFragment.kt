@@ -6,9 +6,16 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import com.example.lenovo.myproject.R
 import com.example.lenovo.myproject.SPHandler
+import com.example.lenovo.myproject.api.NetworkService
+import com.example.lenovo.myproject.api.TinkoffResponse
+import com.squareup.picasso.Picasso
+import retrofit2.Call
+import retrofit2.Response
 
 class ProfileFragment : Fragment() {
 
@@ -39,10 +46,34 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        SPHandler.setData(getView()?.findViewById(R.id.tv_first_name), getString(R.string.preference_first_name_key))
-        SPHandler.setData(getView()?.findViewById(R.id.tv_last_name), getString(R.string.preference_last_name_key))
-        SPHandler.setData(getView()?.findViewById(R.id.tv_patronymic), getString(R.string.preference_patronymic_key))
         setupEditButton()
+
+        val getRequest = NetworkService.getInstance()?.getUser(SPHandler.getCookie())
+        getRequest?.enqueue(object : retrofit2.Callback<TinkoffResponse> {
+            override fun onFailure(call: Call<TinkoffResponse>, t: Throwable) {
+
+            }
+
+            override fun onResponse(call: Call<TinkoffResponse>, response: Response<TinkoffResponse>) {
+                val user = response.body()?.user
+                if (user == null) {
+                    Toast.makeText(
+                        this@ProfileFragment.context,
+                        "Авторизуйтесь для получения информации",
+                        Toast.LENGTH_SHORT
+                    )
+                        .show()
+                    return
+                }
+                getView()?.apply {
+                    findViewById<TextView>(R.id.tv_first_name).text = user.first_name
+                    findViewById<TextView>(R.id.tv_last_name).text = user.last_name
+                    findViewById<TextView>(R.id.tv_patronymic).text = user.middle_name
+                    val imageView = findViewById<ImageView>(R.id.profile_image)
+                    Picasso.get().load(NetworkService.HOST + user.avatar).into(imageView)
+                }
+            }
+        })
     }
 
     private fun setupEditButton() {
