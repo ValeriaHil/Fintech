@@ -12,7 +12,7 @@ import android.widget.Toast
 import com.example.lenovo.myproject.R
 import com.example.lenovo.myproject.SPHandler
 import com.example.lenovo.myproject.api.NetworkService
-import com.example.lenovo.myproject.api.TinkoffResponse
+import com.example.lenovo.myproject.api.TinkoffUserResponse
 import com.squareup.picasso.Picasso
 import retrofit2.Call
 import retrofit2.Response
@@ -49,12 +49,12 @@ class ProfileFragment : Fragment() {
         setupEditButton()
 
         val getRequest = NetworkService.getInstance()?.getUser(SPHandler.getCookie())
-        getRequest?.enqueue(object : retrofit2.Callback<TinkoffResponse> {
-            override fun onFailure(call: Call<TinkoffResponse>, t: Throwable) {
+        getRequest?.enqueue(object : retrofit2.Callback<TinkoffUserResponse> {
+            override fun onFailure(call: Call<TinkoffUserResponse>, t: Throwable) {
 
             }
 
-            override fun onResponse(call: Call<TinkoffResponse>, response: Response<TinkoffResponse>) {
+            override fun onResponse(call: Call<TinkoffUserResponse>, response: Response<TinkoffUserResponse>) {
                 val user = response.body()?.user
                 if (user == null) {
                     if (context != null) {

@@ -1,6 +1,7 @@
 package com.example.lenovo.myproject.api
 
 import android.os.SystemClock
+import com.example.lenovo.myproject.DB.Homework
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
@@ -29,12 +30,16 @@ class NetworkService {
         tinkoffApi = retrofit.create(TinkoffApi::class.java)
     }
 
-    fun getUser(cookie: String?): Call<TinkoffResponse> {
+    fun getUser(cookie: String?): Call<TinkoffUserResponse> {
         return tinkoffApi.user(cookie)
     }
 
     fun post(post: Post): Call<Post> {
         return tinkoffApi.signin(post)
+    }
+
+    fun getLectures(cookie: String?): Call<Homework> {
+        return tinkoffApi.lectures(cookie)
     }
 
     companion object {

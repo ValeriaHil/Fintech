@@ -1,6 +1,6 @@
 package com.example.lenovo.myproject.api
 
-class TinkoffResponse {
+class TinkoffUserResponse {
     var user: User? = null
 }
 

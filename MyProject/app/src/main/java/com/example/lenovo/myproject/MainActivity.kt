@@ -26,7 +26,7 @@ import java.lang.ref.WeakReference
 class MainActivity : AppCompatActivity(), ProfileFragment.ProfileListener,
     ProfileEditingFragment.ProfileEditingListener, DialogSaving.DialogSavingListener,
     ProgressFragment.ProgressFragmentListener, CoursesFragment.CoursesFragmentListener,
-    SettingsFragment.OnSettingItemSelected {
+    SettingsFragment.OnSettingItemSelected, RatingFragment.RatingFragmentListener {
 
     companion object {
         const val ARG_MESSAGE = "ARG_MESSAGE"
@@ -138,10 +138,6 @@ class MainActivity : AppCompatActivity(), ProfileFragment.ProfileListener,
         } else {
             super.onBackPressed()
         }
-    }
-
-    override fun onStop() {
-        super.onStop()
     }
 
     override fun onSaveProfileEditingButtonClicked() {
@@ -265,6 +261,11 @@ class MainActivity : AppCompatActivity(), ProfileFragment.ProfileListener,
 
     override fun onAuthorizationSelected() {
         val intent = Intent(this, AuthorizationActivity::class.java)
+        startActivity(intent)
+    }
+
+    override fun onRatingDetailsButtonClicked() {
+        val intent = Intent(this, LecturesActivity::class.java)
         startActivity(intent)
     }
 }
