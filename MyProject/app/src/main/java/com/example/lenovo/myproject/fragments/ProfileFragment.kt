@@ -57,12 +57,14 @@ class ProfileFragment : Fragment() {
             override fun onResponse(call: Call<TinkoffResponse>, response: Response<TinkoffResponse>) {
                 val user = response.body()?.user
                 if (user == null) {
-                    Toast.makeText(
-                        this@ProfileFragment.context,
-                        "Авторизуйтесь для получения информации",
-                        Toast.LENGTH_SHORT
-                    )
-                        .show()
+                    if (context != null) {
+                        Toast.makeText(
+                            context,
+                            "Авторизуйтесь для получения информации",
+                            Toast.LENGTH_SHORT
+                        )
+                            .show()
+                    }
                     return
                 }
                 getView()?.apply {

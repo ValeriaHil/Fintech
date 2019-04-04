@@ -9,6 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class NetworkService {
     private val retrofit: Retrofit
+    private val tinkoffApi: TinkoffApi
 
     init {
         val loggingInterceptor = HttpLoggingInterceptor()
@@ -25,18 +26,15 @@ class NetworkService {
             .addConverterFactory(GsonConverterFactory.create())
             .client(client.build())
             .build()
-    }
-
-    private fun getJsonApi(): TinkoffApi {
-        return retrofit.create(TinkoffApi::class.java)
+        tinkoffApi = retrofit.create(TinkoffApi::class.java)
     }
 
     fun getUser(cookie: String?): Call<TinkoffResponse> {
-        return getJsonApi().user(cookie)
+        return tinkoffApi.user(cookie)
     }
 
     fun post(post: Post): Call<Post> {
-        return getJsonApi().signin(post)
+        return tinkoffApi.signin(post)
     }
 
     companion object {

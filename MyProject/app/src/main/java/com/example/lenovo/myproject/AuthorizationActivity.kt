@@ -9,6 +9,7 @@ import com.example.lenovo.myproject.api.NetworkService
 import com.example.lenovo.myproject.api.Post
 import retrofit2.Call
 import retrofit2.Response
+import java.lang.ref.WeakReference
 
 class AuthorizationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,15 +26,18 @@ class AuthorizationActivity : AppCompatActivity() {
             val postRequest = NetworkService.getInstance()?.post(Post(email.text.toString(), password.text.toString()))
             postRequest?.enqueue(object : retrofit2.Callback<Post> {
                 override fun onFailure(call: Call<Post>, t: Throwable) {
-                    Toast.makeText(this@AuthorizationActivity, "Can't sign in", Toast.LENGTH_LONG).show()
+                    Toast.makeText(applicationContext, "Can't sign in", Toast.LENGTH_LONG).show()
                     t.printStackTrace()
                 }
 
                 override fun onResponse(call: Call<Post>, response: Response<Post>) {
                     if (response.code() != 200) {
-                        Toast.makeText(this@AuthorizationActivity, "Не удалось совершить вход", Toast.LENGTH_SHORT)
+                        Toast.makeText(applicationContext, "Не удалось совершить вход", Toast.LENGTH_SHORT)
                             .show()
                         return
+                    } else {
+                        Toast.makeText(applicationContext, "Вход успешно выполнен", Toast.LENGTH_SHORT)
+                            .show()
                     }
                     val post = response.headers()
                     val cookie = post.get("Set-Cookie")
@@ -41,10 +45,5 @@ class AuthorizationActivity : AppCompatActivity() {
                 }
             })
         }
-    }
-
-    override fun onBackPressed() {
-        super.onBackPressed()
-        finish()
     }
 }

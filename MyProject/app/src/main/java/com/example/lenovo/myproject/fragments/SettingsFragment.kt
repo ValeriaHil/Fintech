@@ -38,7 +38,7 @@ class SettingsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        getView()?.findViewById<TextView>(R.id.authorization)?.setOnClickListener {
+        view.findViewById<TextView>(R.id.authorization).setOnClickListener {
             listener?.onAuthorizationSelected()
         }
 

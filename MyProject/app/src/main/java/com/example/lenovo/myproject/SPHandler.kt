@@ -24,7 +24,7 @@ class SPHandler {
         }
 
         fun setCookie(cookie: String?) {
-            sharedPreferences?.apply { edit().putString("Cookie", cookie).apply() }
+            sharedPreferences?.edit()?.putString("Cookie", cookie)?.apply()
         }
 
         fun getCookie(): String? {
