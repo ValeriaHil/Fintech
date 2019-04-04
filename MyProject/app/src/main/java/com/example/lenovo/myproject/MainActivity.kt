@@ -17,6 +17,7 @@ import android.support.v4.content.LocalBroadcastManager
 import android.support.v4.widget.SwipeRefreshLayout
 import android.util.Log
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.Toast
 import com.example.lenovo.myproject.dialogs.DialogSaving
 import com.example.lenovo.myproject.fragments.*
@@ -24,7 +25,8 @@ import java.lang.ref.WeakReference
 
 class MainActivity : AppCompatActivity(), ProfileFragment.ProfileListener,
     ProfileEditingFragment.ProfileEditingListener, DialogSaving.DialogSavingListener,
-    ProgressFragment.ProgressFragmentListener, CoursesFragment.CoursesFragmentListener {
+    ProgressFragment.ProgressFragmentListener, CoursesFragment.CoursesFragmentListener,
+    SettingsFragment.OnSettingItemSelected {
 
     companion object {
         const val ARG_MESSAGE = "ARG_MESSAGE"
@@ -83,8 +85,22 @@ class MainActivity : AppCompatActivity(), ProfileFragment.ProfileListener,
         loadFragment(EventsFragment.newInstance())
         setToolbar()
         setPreferences()
+        setSettings()
         val navigation = findViewById<BottomNavigationView>(R.id.navigation)
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+    }
+
+    private fun setSettings() {
+        findViewById<ImageView>(R.id.settings).setOnClickListener {
+            if (currentFragment is SettingsFragment) {
+                return@setOnClickListener
+            }
+            currentFragment = SettingsFragment.newInstance()
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.container, currentFragment)
+                .addToBackStack("settings")
+                .commit()
+        }
     }
 
     private fun setPreferences() {
@@ -98,19 +114,26 @@ class MainActivity : AppCompatActivity(), ProfileFragment.ProfileListener,
     }
 
     override fun onEditProfileButtonClicked() {
+        currentFragment = ProfileEditingFragment.newInstance()
         supportFragmentManager.beginTransaction()
-            .replace(R.id.container, ProfileEditingFragment.newInstance())
+            .replace(R.id.container, currentFragment)
             .addToBackStack("profile_editing")
             .commit()
     }
 
     override fun onBackPressed() {
         if (supportFragmentManager.backStackEntryCount > 0) {
-            if (!dataChanged()) {
+            if (currentFragment is ProfileEditingFragment) {
+                if (!dataChanged()) {
+                    supportFragmentManager.popBackStack()
+                    currentFragment = supportFragmentManager.fragments.last()
+                } else {
+                    showSavingDialog()
+                }
+            }
+            if (currentFragment is SettingsFragment) {
                 supportFragmentManager.popBackStack()
                 currentFragment = supportFragmentManager.fragments.last()
-            } else {
-                showSavingDialog()
             }
         } else {
             super.onBackPressed()
@@ -118,8 +141,6 @@ class MainActivity : AppCompatActivity(), ProfileFragment.ProfileListener,
     }
 
     override fun onStop() {
-        val localBroadcastManager = LocalBroadcastManager.getInstance(this)
-        localBroadcastManager.unregisterReceiver(receiver)
         super.onStop()
     }
 
@@ -182,6 +203,8 @@ class MainActivity : AppCompatActivity(), ProfileFragment.ProfileListener,
                     true
                 })
                 Async.generateScores(list.size, handler)
+                val localBroadcastManager = LocalBroadcastManager.getInstance(context!!)
+                localBroadcastManager.unregisterReceiver(receiver)
             }
         })
 
@@ -202,7 +225,6 @@ class MainActivity : AppCompatActivity(), ProfileFragment.ProfileListener,
         val keyWord = getString(stringId)
         return SPHandler.isDataChanged(view, keyWord)
     }
-
 
     private fun checkForPermission() {
         if (ContextCompat.checkSelfPermission(
@@ -239,5 +261,10 @@ class MainActivity : AppCompatActivity(), ProfileFragment.ProfileListener,
     private fun doTask() {
         val intent = Intent(this, Worker::class.java)
         startService(intent)
+    }
+
+    override fun onAuthorizationSelected() {
+        val intent = Intent(this, AuthorizationActivity::class.java)
+        startActivity(intent)
     }
 }

@@ -1,0 +1,54 @@
+package com.example.lenovo.myproject.api
+
+import android.os.SystemClock
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Call
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+
+class NetworkService {
+    private val retrofit: Retrofit
+
+    init {
+        val loggingInterceptor = HttpLoggingInterceptor()
+        loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+
+        val client = OkHttpClient.Builder()
+            .addInterceptor(loggingInterceptor)
+            .addInterceptor {
+                SystemClock.sleep(2000)
+                it.proceed(it.request())
+            }
+        retrofit = Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(client.build())
+            .build()
+    }
+
+    private fun getJsonApi(): TinkoffApi {
+        return retrofit.create(TinkoffApi::class.java)
+    }
+
+    fun getUser(cookie: String?): Call<TinkoffResponse> {
+        return getJsonApi().user(cookie)
+    }
+
+    fun post(post: Post): Call<Post> {
+        return getJsonApi().signin(post)
+    }
+
+    companion object {
+        private var instance: NetworkService? = null
+        const val HOST = "https://fintech.tinkoff.ru"
+        const val BASE_URL = "$HOST/api/"
+
+        fun getInstance(): NetworkService? {
+            if (instance == null) {
+                instance = NetworkService()
+            }
+            return instance
+        }
+    }
+}
