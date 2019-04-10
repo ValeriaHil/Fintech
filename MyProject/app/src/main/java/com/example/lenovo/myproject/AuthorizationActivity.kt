@@ -22,8 +22,8 @@ class AuthorizationActivity : AppCompatActivity() {
             val email = findViewById<EditText>(R.id.login)
             val password = findViewById<EditText>(R.id.password)
 
-            val postRequest = NetworkService.getInstance()?.post(Post(email.text.toString(), password.text.toString()))
-            postRequest?.enqueue(object : retrofit2.Callback<Post> {
+            val postRequest = NetworkService.getInstance().post(Post(email.text.toString(), password.text.toString()))
+            postRequest.enqueue(object : retrofit2.Callback<Post> {
                 override fun onFailure(call: Call<Post>, t: Throwable) {
                     Toast.makeText(applicationContext, "Can't sign in", Toast.LENGTH_LONG).show()
                     t.printStackTrace()

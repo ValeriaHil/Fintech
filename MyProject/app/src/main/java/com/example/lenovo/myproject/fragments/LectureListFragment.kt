@@ -25,9 +25,12 @@ class LectureListFragment : Fragment() {
     interface LectureListFragmentListener {
         fun onSwipeRefresh(refresh: SwipeRefreshLayout)
         fun onItemClicked(id: Int)
+        fun onLectureListCreated()
     }
 
     private var listener: LectureListFragmentListener? = null
+    private lateinit var recycler: RecyclerView
+    private lateinit var adapter: Adapter
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
@@ -37,9 +40,6 @@ class LectureListFragment : Fragment() {
             throw ClassCastException("$context is not LectureListFragmentListener")
         }
     }
-
-    private lateinit var recycler: RecyclerView
-    private lateinit var adapter: Adapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_lectures, container, false)
@@ -58,15 +58,7 @@ class LectureListFragment : Fragment() {
             listener?.onSwipeRefresh(refresh)
         }
 
-        val database = App.instance.getDatabase()?.lectureDao()
-        val existingLectures = database?.getAll()
-        if (existingLectures?.size == 0) {
-            listener?.onSwipeRefresh(refresh)
-        } else {
-            if (existingLectures != null) {
-                updateData(existingLectures)
-            }
-        }
+        listener?.onLectureListCreated()
     }
 
     fun updateData(lectures: List<Lecture>) {

@@ -19,7 +19,7 @@ class NetworkService {
         val client = OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)
             .addInterceptor {
-                SystemClock.sleep(2000)
+//                SystemClock.sleep(2000)
                 it.proceed(it.request())
             }
         retrofit = Retrofit.Builder()
@@ -43,14 +43,11 @@ class NetworkService {
     }
 
     companion object {
-        private var instance: NetworkService? = null
+        private val instance: NetworkService = NetworkService()
         const val HOST = "https://fintech.tinkoff.ru"
         const val BASE_URL = "$HOST/api/"
 
-        fun getInstance(): NetworkService? {
-            if (instance == null) {
-                instance = NetworkService()
-            }
+        fun getInstance(): NetworkService {
             return instance
         }
     }

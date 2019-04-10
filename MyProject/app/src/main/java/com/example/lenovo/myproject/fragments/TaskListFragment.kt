@@ -21,10 +21,12 @@ class TaskListFragment : Fragment() {
     }
 
     interface TaskListFragmentListener {
-        fun onTaskListCreated(): List<Task>?
+        fun onTaskListCreated()
     }
 
     private var listener: TaskListFragmentListener? = null
+    private lateinit var recycler: RecyclerView
+    private var adapter: Adapter = Adapter(emptyList())
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
@@ -35,9 +37,6 @@ class TaskListFragment : Fragment() {
         }
     }
 
-    private lateinit var recycler: RecyclerView
-    private lateinit var adapter: Adapter
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_tasks, container, false)
     }
@@ -45,17 +44,17 @@ class TaskListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         recycler = view.findViewById(R.id.recycler_for_tasks)
-        val tasks = listener?.onTaskListCreated()
-        if (tasks != null) {
-            adapter = Adapter(tasks)
-        }
+        listener?.onTaskListCreated()
         recycler.layoutManager = LinearLayoutManager(context)
         recycler.adapter = adapter
         recycler.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
     }
 
-    inner class Adapter(private var tasks: List<Task>) : RecyclerView.Adapter<Adapter.ViewHolder>() {
+    fun updateData(tasks: List<Task>) {
+        adapter.updateData(tasks);
+    }
 
+    inner class Adapter(private var tasks: List<Task>) : RecyclerView.Adapter<Adapter.ViewHolder>() {
         override fun onCreateViewHolder(parent: ViewGroup, index: Int): Adapter.ViewHolder {
             val inflater = LayoutInflater.from(parent.context)
             val view = inflater.inflate(R.layout.task_info, parent, false)
@@ -68,6 +67,11 @@ class TaskListFragment : Fragment() {
 
         override fun onBindViewHolder(holder: Adapter.ViewHolder, p: Int) {
             holder.bind(tasks[p]);
+        }
+
+        fun updateData(tasks: List<Task>) {
+            this.tasks = tasks
+            notifyDataSetChanged()
         }
 
         inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {

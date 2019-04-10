@@ -5,7 +5,7 @@ import android.arch.persistence.room.Room
 import com.example.lenovo.myproject.DB.AppDB
 
 class App : Application() {
-    private var database: AppDB? = null
+    private lateinit var database: AppDB
 
     override fun onCreate() {
         super.onCreate()
@@ -17,7 +17,7 @@ class App : Application() {
         lateinit var instance: App
     }
 
-    fun getDatabase(): AppDB? {
+    fun getDatabase(): AppDB {
         return database
     }
 }

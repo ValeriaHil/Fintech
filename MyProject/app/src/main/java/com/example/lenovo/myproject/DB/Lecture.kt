@@ -1,13 +1,18 @@
 package com.example.lenovo.myproject.DB
 
 import android.arch.persistence.room.*
+import android.os.Parcelable
+import kotlinx.android.parcel.IgnoredOnParcel
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 @Entity
-class Lecture(
+data class Lecture(
     @PrimaryKey
     val id: Int,
     val title: String
-) {
+) : Parcelable {
+    @IgnoredOnParcel
     @Ignore
     var tasks: List<TaskResponse>? = null
 }
@@ -21,13 +26,14 @@ interface LectureDao {
     fun addAll(lectures: List<Lecture>)
 }
 
+@Parcelize
 @Entity
-class Task(
+data class Task(
     @PrimaryKey
     val id: Int,
     val title: String,
     var lectureId: Int
-)
+) : Parcelable
 
 @Dao
 interface TaskDao {

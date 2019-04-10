@@ -48,8 +48,8 @@ class ProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupEditButton()
 
-        val getRequest = NetworkService.getInstance()?.getUser(SPHandler.getCookie())
-        getRequest?.enqueue(object : retrofit2.Callback<TinkoffUserResponse> {
+        val getRequest = NetworkService.getInstance().getUser(SPHandler.getCookie())
+        getRequest.enqueue(object : retrofit2.Callback<TinkoffUserResponse> {
             override fun onFailure(call: Call<TinkoffUserResponse>, t: Throwable) {
 
             }
