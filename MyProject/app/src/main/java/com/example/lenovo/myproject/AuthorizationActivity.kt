@@ -9,7 +9,6 @@ import com.example.lenovo.myproject.api.NetworkService
 import com.example.lenovo.myproject.api.Post
 import retrofit2.Call
 import retrofit2.Response
-import java.lang.ref.WeakReference
 
 class AuthorizationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
