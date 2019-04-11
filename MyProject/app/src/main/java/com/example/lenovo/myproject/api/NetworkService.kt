@@ -19,7 +19,7 @@ class NetworkService {
         val client = OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)
             .addInterceptor {
-//                SystemClock.sleep(2000)
+                //                SystemClock.sleep(2000)
                 it.proceed(it.request())
             }
         retrofit = Retrofit.Builder()
@@ -40,6 +40,10 @@ class NetworkService {
 
     fun getLectures(cookie: String?): Call<Homework> {
         return tinkoffApi.lectures(cookie)
+    }
+
+    fun getStudents(cookie: String?): Call<List<Students>> {
+        return tinkoffApi.students(cookie)
     }
 
     companion object {

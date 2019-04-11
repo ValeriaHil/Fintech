@@ -16,4 +16,7 @@ interface TinkoffApi {
 
     @POST("signin")
     fun signin(@Body data: Post): Call<Post>
+
+    @GET("course/android_spring_2019/grades")
+    fun students(@Header("Cookie") cookie: String?): Call<List<Students>>
 }

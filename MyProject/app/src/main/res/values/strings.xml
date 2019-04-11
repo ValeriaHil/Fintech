@@ -40,4 +40,20 @@
     <string name="_2_android">Курс №2. Android</string>
     <string name="_26">26 баллов</string>
     <string name="title_progress">Успеваемость</string>
+
+    <plurals name="scores_plurals">
+        <item quantity="zero">баллов</item>
+        <item quantity="one">балл</item>
+        <item quantity="two">балла</item>
+        <item quantity="few">балла</item>
+        <item quantity="many">баллов</item>
+        <item quantity="other">баллов</item>
+    </plurals>
+
+    <string-array name="spinner_view">
+        <item>Параметры</item>
+        <item>По алфавиту</item>
+        <item>По баллам</item>
+        <item>Другой вид</item>
+    </string-array>
 </resources>
