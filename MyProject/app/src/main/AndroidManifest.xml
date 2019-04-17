@@ -32,8 +32,7 @@
             android:name=".LecturesActivity"
             android:configChanges="screenSize|orientation" />
 
-        <service android:name=".Worker" />
-        <service android:name=".DB.DBService"></service>
+        <service android:name=".DB.DBService" />
     </application>
 
 </manifest>

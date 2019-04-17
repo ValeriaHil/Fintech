@@ -9,7 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import com.example.lenovo.myproject.Person
+import com.example.lenovo.myproject.DB.Person
 import com.example.lenovo.myproject.R
 import com.example.lenovo.myproject.customview.UserImage
 
@@ -50,7 +50,7 @@ class ProgressFragment : Fragment() {
             listener?.onProgressDetailsButtonClicked()
         }
         recycler = getView()?.findViewById(R.id.recycler_for_progress) ?: return
-        adapter = Adapter(emptyList())
+        adapter = Adapter(listOf(Person(0, "Гиль Валерия", "28")))
         recycler.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         recycler.adapter = adapter
         listener?.setProgressContacts(this)
