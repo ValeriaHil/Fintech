@@ -1,5 +1,6 @@
 package com.example.lenovo.myproject.DB
 
+import android.arch.lifecycle.LiveData
 import android.arch.persistence.room.*
 import android.os.Parcelable
 import kotlinx.android.parcel.IgnoredOnParcel
@@ -20,7 +21,7 @@ data class Lecture(
 @Dao
 interface LectureDao {
     @Query("SELECT * FROM lecture")
-    fun getAll(): List<Lecture>
+    fun getAll(): LiveData<List<Lecture>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addAll(lectures: List<Lecture>)
@@ -38,7 +39,7 @@ data class Task(
 @Dao
 interface TaskDao {
     @Query("SELECT * FROM Task WHERE lectureId = :id")
-    fun getTasks(id: Int): List<Task>
+    fun getTasks(id: Int): LiveData<List<Task>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addAll(tasks: List<Task>)

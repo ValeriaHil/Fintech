@@ -1,6 +1,5 @@
 package com.example.lenovo.myproject
 
-import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -8,14 +7,15 @@ import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
 import android.support.v4.widget.SwipeRefreshLayout
 import android.widget.EditText
-import android.widget.ImageView
 import com.example.lenovo.myproject.dialogs.DialogSaving
 import com.example.lenovo.myproject.fragments.*
+import com.example.lenovo.myproject.lectures.LecturesActivity
+import com.example.lenovo.myproject.profile.ProfileFragment
 
-class MainActivity : AppCompatActivity(), ProfileFragment.ProfileListener,
+class MainActivity : AppCompatActivity(),
     ProfileEditingFragment.ProfileEditingListener, DialogSaving.DialogSavingListener,
     ProgressFragment.ProgressFragmentListener, CoursesFragment.CoursesFragmentListener,
-    SettingsFragment.OnSettingItemSelected, RatingFragment.RatingFragmentListener {
+    RatingFragment.RatingFragmentListener {
 
     companion object {
         const val ARG_MESSAGE = "ARG_MESSAGE"
@@ -72,41 +72,13 @@ class MainActivity : AppCompatActivity(), ProfileFragment.ProfileListener,
         setContentView(R.layout.activity_main)
         loadFragment(EventsFragment.newInstance())
         setToolbar()
-        setPreferences()
-        setSettings()
         val navigation = findViewById<BottomNavigationView>(R.id.navigation)
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
-    }
-
-    private fun setSettings() {
-        findViewById<ImageView>(R.id.settings).setOnClickListener {
-            if (currentFragment is SettingsFragment) {
-                return@setOnClickListener
-            }
-            currentFragment = SettingsFragment.newInstance()
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.container, currentFragment)
-                .addToBackStack("settings")
-                .commit()
-        }
-    }
-
-    private fun setPreferences() {
-        SPHandler.sharedPreferences = getPreferences(Context.MODE_PRIVATE)
-        SPHandler.setPreferences(this)
     }
 
     private fun setToolbar() {
         setSupportActionBar(findViewById(R.id.my_toolbar))
         supportActionBar?.title = resources.getString(R.string.title_events)
-    }
-
-    override fun onEditProfileButtonClicked() {
-        currentFragment = ProfileEditingFragment.newInstance()
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.container, currentFragment)
-            .addToBackStack("profile_editing")
-            .commit()
     }
 
     override fun onBackPressed() {
@@ -118,10 +90,6 @@ class MainActivity : AppCompatActivity(), ProfileFragment.ProfileListener,
                 } else {
                     showSavingDialog()
                 }
-            }
-            if (currentFragment is SettingsFragment) {
-                supportFragmentManager.popBackStack()
-                currentFragment = supportFragmentManager.fragments.last()
             }
         } else {
             super.onBackPressed()
@@ -180,11 +148,6 @@ class MainActivity : AppCompatActivity(), ProfileFragment.ProfileListener,
         val view = findViewById<EditText>(viewId)
         val keyWord = getString(stringId)
         return SPHandler.isDataChanged(view, keyWord)
-    }
-
-    override fun onAuthorizationSelected() {
-        val intent = Intent(this, AuthorizationActivity::class.java)
-        startActivity(intent)
     }
 
     override fun onRatingDetailsButtonClicked() {
