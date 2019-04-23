@@ -1,61 +1,75 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fillViewport="true">
+    android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/fl_profile"
+    <include layout="@layout/loading_view" />
+
+    <include layout="@layout/error_view" />
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/contentView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        tools:context="com.example.lenovo.myproject.fragments.ProfileFragment">
+        android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/profile_image"
+        <ScrollView xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:src="@drawable/ic_profile_image" />
+            android:layout_height="match_parent"
+            android:fillViewport="true">
 
-        <TextView
-            android:id="@+id/tv_last_name"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            <LinearLayout
+                android:id="@+id/fl_profile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                tools:context="com.example.lenovo.myproject.profile.ProfileFragment">
 
-        <TextView
-            android:id="@+id/tv_first_name"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+                <ImageView
+                    android:id="@+id/profile_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_profile_image" />
 
-        <TextView
-            android:id="@+id/tv_patronymic"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+                <TextView
+                    android:id="@+id/tv_last_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
 
-        <TextView
-            android:id="@+id/tv_editing"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginStart="?attr/listPreferredItemPaddingLeft"
-            android:layout_weight="1"
-            android:text="@string/edit_button"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+                <TextView
+                    android:id="@+id/tv_first_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="4" />
+                <TextView
+                    android:id="@+id/tv_patronymic"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
 
-    </LinearLayout>
-</ScrollView>
+                <TextView
+                    android:id="@+id/tv_editing"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="?attr/listPreferredItemPaddingLeft"
+                    android:layout_weight="1"
+                    android:text="@string/edit_button"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="4" />
+
+            </LinearLayout>
+        </ScrollView>
+    </android.support.v4.widget.SwipeRefreshLayout>
+</FrameLayout>

@@ -19,7 +19,7 @@ class NetworkService {
         val client = OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)
             .addInterceptor {
-                //                SystemClock.sleep(2000)
+                // SystemClock.sleep(2000)
                 it.proceed(it.request())
             }
         retrofit = Retrofit.Builder()

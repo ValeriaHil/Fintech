@@ -82,14 +82,14 @@ class DBService : IntentService("DBService") {
             GET_TASKS -> {
                 val tasks = DBHandler.tasks.getTasks(extras.getInt(DBHandler.LECTURE_ID))
                 val bundle = Bundle()
-                bundle.putParcelableArrayList(DBHandler.TASKS, ArrayList<Task>(tasks))
+//                bundle.putParcelableArrayList(DBHandler.TASKS, ArrayList<Task>(tasks))
                 resultIntent.putExtra(DBHandler.RESULT, bundle)
                 LocalBroadcastManager.getInstance(this).sendBroadcast(resultIntent)
             }
             GET_LECTURES -> {
                 val lectures = DBHandler.lectures.getAll()
                 val bundle = Bundle()
-                bundle.putParcelableArrayList(DBHandler.LECTURES, ArrayList<Lecture>(lectures))
+//                bundle.putParcelableArrayList(DBHandler.LECTURES, ArrayList<Lecture>(lectures))
                 resultIntent.putExtra(DBHandler.RESULT, bundle)
                 LocalBroadcastManager.getInstance(this).sendBroadcast(resultIntent)
             }

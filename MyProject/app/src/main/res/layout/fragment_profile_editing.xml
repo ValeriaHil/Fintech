@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.lenovo.myproject.fragments.ProfileFragment">
+    tools:context="com.example.lenovo.myproject.profile.ProfileFragment">
 
     <android.support.design.widget.TextInputEditText
         android:id="@+id/te_last_name"
