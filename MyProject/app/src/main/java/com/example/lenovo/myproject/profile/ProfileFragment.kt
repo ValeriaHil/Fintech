@@ -51,34 +51,5 @@ class ProfileFragment : MvpLceFragment<SwipeRefreshLayout, User, ProfileView, Pr
         super.onViewCreated(view, savedInstanceState)
         firstName = view.findViewById<TextView>(R.id.tv_first_name)
         presenter.getProfile()
-
-        val getRequest = NetworkService.getInstance().getUser(SPHandler.getCookie())
-        getRequest.enqueue(object : retrofit2.Callback<TinkoffUserResponse> {
-            override fun onFailure(call: Call<TinkoffUserResponse>, t: Throwable) {
-
-            }
-
-            override fun onResponse(call: Call<TinkoffUserResponse>, response: Response<TinkoffUserResponse>) {
-                val user = response.body()?.user
-                if (user == null) {
-                    if (context != null) {
-                        Toast.makeText(
-                            context,
-                            "Авторизуйтесь для получения информации",
-                            Toast.LENGTH_SHORT
-                        )
-                            .show()
-                    }
-                    return
-                }
-                getView()?.apply {
-                    findViewById<TextView>(R.id.tv_first_name).text = user.first_name
-                    findViewById<TextView>(R.id.tv_last_name).text = user.last_name
-                    findViewById<TextView>(R.id.tv_patronymic).text = user.middle_name
-                    val imageView = findViewById<ImageView>(R.id.profile_image)
-                    Picasso.get().load(NetworkService.HOST + user.avatar).into(imageView)
-                }
-            }
-        })
     }
 }
