@@ -23,23 +23,15 @@ class AuthorizationActivity : MvpActivity<AuthorizationView, AuthorizationPresen
         setContentView(R.layout.activity_authorization)
         presenter.navigator = WeakReference(this)
         val enter = findViewById<TextView>(R.id.enter)
+        val login = findViewById<EditText>(R.id.login)
+        val password = findViewById<EditText>(R.id.password)
         enter.setOnClickListener {
-            presenter.login()
+            presenter.login(login.text.toString(), password.text.toString())
         }
     }
 
     override fun createPresenter(): AuthorizationPresenter {
         return AuthorizationPresenter()
-    }
-
-    override fun getLogin(): String {
-        val login = findViewById<EditText>(R.id.login)
-        return login.text.toString()
-    }
-
-    override fun getPassword(): String {
-        val password = findViewById<EditText>(R.id.password)
-        return password.text.toString()
     }
 
     override fun showError() {
