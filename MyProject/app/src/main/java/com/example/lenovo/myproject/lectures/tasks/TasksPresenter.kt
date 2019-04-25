@@ -12,7 +12,7 @@ class TasksPresenter : MvpBasePresenter<TasksView>() {
 
     fun loadTasks() {
         val tasks = repo.getTasks()
-        tasks.observeForever { it ->
+        tasks?.observeForever { it ->
             view?.setData(it)
         }
     }

@@ -1,34 +1,18 @@
 package com.example.lenovo.myproject.api
 
-import android.os.SystemClock
 import com.example.lenovo.myproject.DB.Homework
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class NetworkService {
-    private val retrofit: Retrofit
-    private val tinkoffApi: TinkoffApi
 
-    init {
-        val loggingInterceptor = HttpLoggingInterceptor()
-        loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+    @Inject
+    constructor()
 
-        val client = OkHttpClient.Builder()
-            .addInterceptor(loggingInterceptor)
-            .addInterceptor {
-                // SystemClock.sleep(2000)
-                it.proceed(it.request())
-            }
-        retrofit = Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(client.build())
-            .build()
-        tinkoffApi = retrofit.create(TinkoffApi::class.java)
-    }
+    @Inject
+    lateinit var tinkoffApi: TinkoffApi
 
     fun getUser(cookie: String?): Call<TinkoffUserResponse> {
         return tinkoffApi.user(cookie)
@@ -44,15 +28,5 @@ class NetworkService {
 
     fun getStudents(cookie: String?): Call<List<Students>> {
         return tinkoffApi.students(cookie)
-    }
-
-    companion object {
-        private val instance: NetworkService = NetworkService()
-        const val HOST = "https://fintech.tinkoff.ru"
-        const val BASE_URL = "$HOST/api/"
-
-        fun getInstance(): NetworkService {
-            return instance
-        }
     }
 }

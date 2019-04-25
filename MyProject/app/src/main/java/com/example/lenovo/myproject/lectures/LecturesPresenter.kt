@@ -14,7 +14,7 @@ class LecturesPresenter : MvpBasePresenter<LecturesView>() {
 
     fun loadLectures() {
         val lectures = repo.getLectures()
-        lectures.observeForever { it ->
+        lectures.observeForever {
             view?.setData(it)
         }
     }

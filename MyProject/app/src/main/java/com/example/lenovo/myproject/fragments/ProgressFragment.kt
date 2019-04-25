@@ -9,7 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import com.example.lenovo.myproject.DB.Person
+import com.example.lenovo.myproject.DB.Student
 import com.example.lenovo.myproject.R
 import com.example.lenovo.myproject.customview.UserImage
 
@@ -50,17 +50,17 @@ class ProgressFragment : Fragment() {
             listener?.onProgressDetailsButtonClicked()
         }
         recycler = getView()?.findViewById(R.id.recycler_for_progress) ?: return
-        adapter = Adapter(listOf(Person(0, "Гиль Валерия", "28")))
+        adapter = Adapter(listOf(Student(0, "Гиль Валерия", "28")))
         recycler.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         recycler.adapter = adapter
         listener?.setProgressContacts(this)
     }
 
-    fun updateData(contacts: List<Person>) {
+    fun updateData(contacts: List<Student>) {
         adapter.updateData(contacts)
     }
 
-    inner class Adapter(private var contacts: List<Person>) : RecyclerView.Adapter<Adapter.ViewHolder>() {
+    inner class Adapter(private var contacts: List<Student>) : RecyclerView.Adapter<Adapter.ViewHolder>() {
 
         override fun onCreateViewHolder(parent: ViewGroup, index: Int): Adapter.ViewHolder {
             val inflater = LayoutInflater.from(parent.context)
@@ -69,7 +69,7 @@ class ProgressFragment : Fragment() {
             return ViewHolder(view)
         }
 
-        fun updateData(contacts: List<Person>) {
+        fun updateData(contacts: List<Student>) {
             this.contacts = contacts
             notifyDataSetChanged()
         }
@@ -87,10 +87,10 @@ class ProgressFragment : Fragment() {
             private val name: TextView = view.findViewById(R.id.name)
             private val scores: TextView = view.findViewById(R.id.badge_scores)
 
-            fun bind(person: Person) {
-                name.text = person.name
-                scores.text = person.scores
-                image.setInitials(UserImage.transform(person.name))
+            fun bind(student: Student) {
+                name.text = student.name
+                scores.text = student.scores
+                image.setInitials(UserImage.transform(student.name))
                 image.setRoundColor(UserImage.getColor())
             }
         }

@@ -17,7 +17,6 @@ class LecturesActivity : AppCompatActivity(), LecturesListFragment.LecturesListF
             .commit()
     }
 
-
     private lateinit var fragment: Fragment
 
     override fun onCreate(savedInstanceState: Bundle?) {

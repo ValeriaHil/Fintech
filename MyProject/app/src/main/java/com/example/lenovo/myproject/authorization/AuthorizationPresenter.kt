@@ -17,7 +17,7 @@ class AuthorizationPresenter : MvpBasePresenter<AuthorizationView>() {
     lateinit var navigator: WeakReference<Navigator>
 
     fun login(login: String, password: String) {
-        val postRequest = NetworkService.getInstance().post(Post(login, password))
+        val postRequest = (view as AuthorizationActivity).network.post(Post(login, password))
         postRequest.enqueue(object : retrofit2.Callback<Post> {
             override fun onFailure(call: Call<Post>, t: Throwable) {
                 if (isViewAttached) {
