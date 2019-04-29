@@ -1,11 +1,13 @@
 package com.example.lenovo.myproject.api
 
 import android.os.Parcelable
+import com.example.lenovo.myproject.DB.Student
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
+import java.util.ArrayList
 
 @Parcelize
-data class Student(
+data class StudentApi(
     @SerializedName("student_id")
     val id: Int,
     @SerializedName("student")
@@ -22,5 +24,5 @@ data class Grade(
 
 data class Students(
     @SerializedName("grades")
-    val students: List<Student>
+    val studentApis: List<StudentApi>
 )

@@ -11,6 +11,7 @@ import com.example.lenovo.myproject.dialogs.DialogSaving
 import com.example.lenovo.myproject.fragments.*
 import com.example.lenovo.myproject.lectures.LecturesActivity
 import com.example.lenovo.myproject.profile.ProfileFragment
+import com.example.lenovo.myproject.students.StudentsActivity
 
 class MainActivity : AppCompatActivity(),
     ProfileEditingFragment.ProfileEditingListener, DialogSaving.DialogSavingListener,
@@ -130,7 +131,7 @@ class MainActivity : AppCompatActivity(),
     }
 
     override fun onProgressDetailsButtonClicked() {
-        val intent = Intent(this, DetailsActivity::class.java)
+        val intent = Intent(this, StudentsActivity::class.java)
         startActivity(intent)
     }
 

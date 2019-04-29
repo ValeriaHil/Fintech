@@ -5,13 +5,20 @@ import android.os.Bundle
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import com.example.lenovo.myproject.App
 import com.example.lenovo.myproject.MainActivity
 import com.example.lenovo.myproject.R
+import com.example.lenovo.myproject.api.NetworkService
 import com.hannesdorfmann.mosby.mvp.MvpActivity
 import java.lang.ref.WeakReference
+import javax.inject.Inject
 
 class AuthorizationActivity : MvpActivity<AuthorizationView, AuthorizationPresenter>(), AuthorizationView,
     AuthorizationPresenter.Navigator {
+
+    @Inject
+    lateinit var network: NetworkService
+
     override fun startMainActivity() {
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
@@ -19,6 +26,8 @@ class AuthorizationActivity : MvpActivity<AuthorizationView, AuthorizationPresen
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        App.instance.getRepositoryComponent().inject(this)
 
         setContentView(R.layout.activity_authorization)
         presenter.navigator = WeakReference(this)

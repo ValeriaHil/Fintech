@@ -1,30 +1,34 @@
 package com.example.lenovo.myproject
 
 import android.app.Application
-import android.arch.persistence.room.Room
-import com.example.lenovo.myproject.DB.AppDB
+import com.example.lenovo.myproject.DB.DatabaseModule
 import com.example.lenovo.myproject.lectures.LecturesRepository
 import com.example.lenovo.myproject.lectures.tasks.TasksRepository
+import com.example.lenovo.myproject.students.StudentsRepository
 
 class App : Application() {
-    private lateinit var database: AppDB
     private lateinit var lecturesRepo: LecturesRepository
     private lateinit var tasksRepo: TasksRepository
+    lateinit var studentsRepo: StudentsRepository
+    private lateinit var repositoryComponent: RepositoryComponent
 
     override fun onCreate() {
         super.onCreate()
         instance = this
-        database = Room.databaseBuilder(this, AppDB::class.java, "database").allowMainThreadQueries().build()
         lecturesRepo = LecturesRepository()
         tasksRepo = TasksRepository()
+        studentsRepo = StudentsRepository()
     }
 
     companion object {
         lateinit var instance: App
     }
 
-    fun getDatabase(): AppDB {
-        return database
+    fun getRepositoryComponent(): RepositoryComponent {
+        if (!this::repositoryComponent.isInitialized) {
+            repositoryComponent = DaggerRepositoryComponent.builder().databaseModule(DatabaseModule(this)).build()
+        }
+        return repositoryComponent
     }
 
     fun getLecturesRepository(): LecturesRepository {

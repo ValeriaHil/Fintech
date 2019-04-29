@@ -1,9 +1,7 @@
-package com.example.lenovo.myproject.fragments
+package com.example.lenovo.myproject.students
 
-import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.GridLayoutManager
@@ -13,60 +11,68 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import com.example.lenovo.myproject.DB.Person
+import com.example.lenovo.myproject.DB.Student
 import com.example.lenovo.myproject.R
 import com.example.lenovo.myproject.customview.UserImage
+import com.hannesdorfmann.mosby.mvp.lce.MvpLceFragment
 import kotlin.random.Random
 
-class StudentListFragment : Fragment() {
+class StudentListFragment : MvpLceFragment<SwipeRefreshLayout, List<Student>, StudentsView, StudentsPresenter>(),
+    SwipeRefreshLayout.OnRefreshListener, StudentsView {
+
+    private lateinit var recycler: RecyclerView
+    private var adapter = Adapter(emptyList())
+
     companion object {
         fun newInstance(): StudentListFragment {
             return StudentListFragment()
         }
     }
 
-    interface StudentListFragmentListener {
-        fun onStudentListCreated()
-        fun onSwipeRefresh(refresh: SwipeRefreshLayout)
-    }
-
-    private var listener: StudentListFragmentListener? = null
-    private lateinit var recycler: RecyclerView
-    private lateinit var adapter: Adapter
-
-    override fun onAttach(context: Context?) {
-        super.onAttach(context)
-        if (context is StudentListFragmentListener) {
-            listener = context
-        } else {
-            throw ClassCastException("$context is not StudentListFragmentListener")
-        }
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_students, container, false)
+        return inflater.inflate(R.layout.fragment_lce, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        recycler = getView()?.findViewById(R.id.students_recycler_view) ?: return
-        adapter = Adapter(emptyList())
+        recycler = view.findViewById(R.id.recycler)
         recycler.layoutManager = LinearLayoutManager(context)
         recycler.adapter = adapter
         recycler.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
-        recycler.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.HORIZONTAL))
-        val refresh = view.findViewById<SwipeRefreshLayout>(R.id.swipe_students)
-        refresh.setOnRefreshListener {
-            listener?.onSwipeRefresh(refresh)
+        contentView.setOnRefreshListener(this)
+        loadData(false)
+    }
+
+    override fun loadData(pullToRefresh: Boolean) {
+        showLoading(pullToRefresh)
+        presenter.loadStudents()
+    }
+
+    override fun createPresenter(): StudentsPresenter {
+        return StudentsPresenter()
+    }
+
+    override fun setData(data: List<Student>?) {
+        showContent()
+        updateData(data)
+        contentView.isRefreshing = false
+    }
+
+    override fun getErrorMessage(e: Throwable?, pullToRefresh: Boolean): String {
+        return e?.message ?: ""
+    }
+
+    override fun onRefresh() {
+        presenter.loadStudents()
+    }
+
+    fun updateData(contacts: List<Student>?) {
+        if (contacts != null) {
+            adapter.updateData(contacts)
         }
-        listener?.onStudentListCreated()
     }
 
-    fun updateData(contacts: List<Person>) {
-        adapter.updateData(contacts)
-    }
-
-    fun getStudents(): List<Person> {
+    fun getStudents(): List<Student> {
         return adapter.getStudents()
     }
 
@@ -80,9 +86,9 @@ class StudentListFragment : Fragment() {
         recycler.adapter = adapter
     }
 
-    inner class Adapter(private var students: List<Person>) : RecyclerView.Adapter<Adapter.ViewHolder>() {
+    inner class Adapter(private var students: List<Student>) : RecyclerView.Adapter<Adapter.ViewHolder>() {
 
-        override fun onCreateViewHolder(parent: ViewGroup, index: Int): Adapter.ViewHolder {
+        override fun onCreateViewHolder(parent: ViewGroup, index: Int): ViewHolder {
             val inflater = LayoutInflater.from(parent.context)
             var layout = R.layout.contact_info_grid
             if (recycler.layoutManager !is GridLayoutManager) {
@@ -92,12 +98,12 @@ class StudentListFragment : Fragment() {
             return ViewHolder(view)
         }
 
-        fun updateData(contacts: List<Person>) {
+        fun updateData(contacts: List<Student>) {
             this.students = contacts
             notifyDataSetChanged()
         }
 
-        fun getStudents(): List<Person> {
+        fun getStudents(): List<Student> {
             return students
         }
 
@@ -105,7 +111,7 @@ class StudentListFragment : Fragment() {
             return students.size
         }
 
-        override fun onBindViewHolder(holder: Adapter.ViewHolder, p: Int) {
+        override fun onBindViewHolder(holder: ViewHolder, p: Int) {
             holder.bind(students[p]);
         }
 
@@ -114,7 +120,7 @@ class StudentListFragment : Fragment() {
             private val name: TextView = view.findViewById(R.id.name)
             private val scores: TextView = view.findViewById(R.id.scores)
 
-            fun bind(student: Person) {
+            fun bind(student: Student) {
                 this.name.text = student.name
                 var dot = student.scores.indexOf(".")
                 if (dot == -1) {
