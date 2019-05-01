@@ -122,11 +122,7 @@ class StudentListFragment : MvpLceFragment<SwipeRefreshLayout, List<Student>, St
 
             fun bind(student: Student) {
                 this.name.text = student.name
-                var dot = student.scores.indexOf(".")
-                if (dot == -1) {
-                    dot = student.scores.length
-                }
-                val intValue = student.scores.substring(0, dot).toInt()
+                val intValue = student.getIntValueOfScores()
                 val suffix = " " + resources.getQuantityString(R.plurals.scores_plurals, intValue)
                 val sc = "%.2f".format(student.scores.toDouble()) + suffix
                 scores.text = sc
