@@ -28,24 +28,24 @@ class StudentsRepository {
         timer = 0
     }
 
-    fun getStudents(): Observable<List<Student>> {
+    fun getStudents(pullToRefresh: Boolean): Observable<List<Student>> {
         val currentTime = System.currentTimeMillis()
-        if (currentTime - timer > TIME_LIMIT) {
-            return getStudentsFromNet()
+        return if (pullToRefresh || currentTime - timer > TIME_LIMIT) {
+            getStudentsFromNet().onErrorResumeNext(getStudentsFromDB())
         } else {
-            return getStudentsFromDB()
+            getStudentsFromDB()
         }
     }
 
     private fun getStudentsFromNet(): Observable<List<Student>> {
         return network.students(SPHandler.getCookie())
             .flatMap { students -> fromCallable { studentApiToStudent(students[1].studentApis) } }
-            .doOnNext { storeInDB(it) }
-            .doOnNext { timer = System.currentTimeMillis() }
+            .doOnNext { if (!it.isNullOrEmpty()) storeInDB(it) }
     }
 
     private fun storeInDB(students: List<Student>) {
         val result = fromCallable { database.studentDao().addAll(students) }
+            .doOnNext { timer = System.currentTimeMillis() }
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
             .subscribe()
@@ -56,7 +56,7 @@ class StudentsRepository {
     }
 
     private fun studentApiToStudent(studentApis: List<StudentApi>): List<Student> {
-        val res = java.util.ArrayList<Student>()
+        val res = ArrayList<Student>()
         for (student in studentApis) {
             res.add(Student(student))
         }

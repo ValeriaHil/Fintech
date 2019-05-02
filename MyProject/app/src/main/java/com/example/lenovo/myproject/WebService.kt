@@ -29,6 +29,8 @@ object WebService {
                     lectures.forEach { lecture ->
                         lecture.tasks?.forEach {
                             it.task.lectureId = lecture.id
+                            it.task.mark = it.mark
+                            it.task.status = it.status
                             newTasks.add(it.task)
                         }
                     }

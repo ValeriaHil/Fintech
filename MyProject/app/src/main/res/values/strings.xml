@@ -40,6 +40,9 @@
     <string name="_2_android">Курс №2. Android</string>
     <string name="_26">26 баллов</string>
     <string name="title_progress">Успеваемость</string>
+    <string name="login">ЛОГИН</string>
+    <string name="password">ПАРОЛЬ</string>
+    <string name="enter">ВОЙТИ</string>
 
     <plurals name="scores_plurals">
         <item quantity="zero">баллов</item>

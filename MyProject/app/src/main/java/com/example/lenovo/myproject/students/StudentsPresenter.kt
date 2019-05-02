@@ -10,22 +10,18 @@ import io.reactivex.functions.BiFunction
 import io.reactivex.schedulers.Schedulers
 
 class StudentsPresenter : MvpBasePresenter<StudentsView>() {
-    private val repo = App.instance.studentsRepo
+    private val studentsRepo = App.instance.studentsRepo
     private val userRepo = App.instance.userRepo
 
-    fun loadStudents() {
+    fun loadStudents(pullToRefresh: Boolean) {
         val result = Observable.combineLatest<List<Student>, User, List<Student>>(
-            repo.getStudents(),
-            userRepo.getUser(),
+            studentsRepo.getStudents(pullToRefresh),
+            userRepo.getUser(pullToRefresh),
             BiFunction { students: List<Student>, user: User -> filterData(students, user) })
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ list: List<Student> ->
-                view?.setData(list)
-            },
-                { error ->
-                    view?.showError(error, false)
-                })
+            .subscribe({ list: List<Student> -> view?.setData(list) },
+                { error -> view?.showError(error, false) })
     }
 
     private fun filterData(students: List<Student>, user: User): List<Student> {

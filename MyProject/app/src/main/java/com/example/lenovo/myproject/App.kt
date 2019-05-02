@@ -21,6 +21,7 @@ class App : Application() {
         tasksRepo = TasksRepository()
         studentsRepo = StudentsRepository()
         userRepo = ProfileRepository()
+        SPHandler.setCookie("")
     }
 
     companion object {

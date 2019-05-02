@@ -45,7 +45,7 @@ class StudentListFragment : MvpLceFragment<SwipeRefreshLayout, List<Student>, St
 
     override fun loadData(pullToRefresh: Boolean) {
         showLoading(pullToRefresh)
-        presenter.loadStudents()
+        presenter.loadStudents(pullToRefresh)
     }
 
     override fun createPresenter(): StudentsPresenter {
@@ -63,7 +63,7 @@ class StudentListFragment : MvpLceFragment<SwipeRefreshLayout, List<Student>, St
     }
 
     override fun onRefresh() {
-        presenter.loadStudents()
+        presenter.loadStudents(true)
     }
 
     fun updateData(contacts: List<Student>?) {

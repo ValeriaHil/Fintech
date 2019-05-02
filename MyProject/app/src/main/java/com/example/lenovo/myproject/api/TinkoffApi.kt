@@ -3,6 +3,7 @@ package com.example.lenovo.myproject.api
 import com.example.lenovo.myproject.DB.Homework
 import io.reactivex.Observable
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -16,7 +17,7 @@ interface TinkoffApi {
     fun lectures(@Header("Cookie") cookie: String?): Call<Homework>
 
     @POST("signin")
-    fun signin(@Body data: Post): Call<Post>
+    fun signin(@Body data: Post): Observable<Response<Post>>
 
     @GET("course/android_spring_2019/grades")
     fun students(@Header("Cookie") cookie: String?): Observable<List<Students>>

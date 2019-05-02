@@ -1,39 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="4dp">
+    android:background="#3e4757"
+    android:fillViewport="true">
 
-    <EditText
-        android:id="@+id/login"
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/password"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Login" />
+        android:layout_height="wrap_content">
 
-    <EditText
-        android:id="@+id/password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/login"
-        tools:text="Password" />
 
-    <TextView
-        android:id="@+id/enter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="4dp"
-        android:text="Войти"
-        android:textColor="@color/colorPrimary"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/password" />
+        <ImageView
+            android:id="@+id/authorization_image"
+            android:layout_width="206dp"
+            android:layout_height="174dp"
+            android:layout_marginStart="77dp"
+            android:layout_marginTop="53dp"
+            android:layout_marginEnd="77dp"
+            android:layout_marginBottom="53dp"
+            android:src="@drawable/bitmap_3_x"
+            app:layout_constraintBottom_toTopOf="@id/login"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-</android.support.constraint.ConstraintLayout>
+        <EditText
+            android:id="@+id/login"
+            style="@style/Button"
+            android:background="@drawable/rounded_grey_rectangle"
+            android:hint="@string/login"
+            android:inputType="textEmailAddress"
+            android:textColorHint="@color/white"
+            app:layout_constraintBottom_toTopOf="@id/password"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/authorization_image" />
+
+        <EditText
+            android:id="@+id/password"
+            style="@style/Button"
+            android:background="@drawable/rounded_grey_rectangle"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:textColorHint="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/login" />
+
+        <TextView
+            android:id="@+id/enter"
+            style="@style/Button"
+            android:background="@drawable/rounded_yellow_rectangle"
+            android:text="@string/enter"
+            android:textColor="#333333"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/password" />
+
+    </android.support.constraint.ConstraintLayout>
+</ScrollView>

@@ -1,46 +1,46 @@
 package com.example.lenovo.myproject.authorization
 
-import com.example.lenovo.myproject.SPHandler
-import com.example.lenovo.myproject.api.NetworkService
+import com.example.lenovo.myproject.App
 import com.example.lenovo.myproject.api.Post
 import com.hannesdorfmann.mosby.mvp.MvpBasePresenter
-import retrofit2.Call
-import retrofit2.Response
-import java.lang.ref.WeakReference
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 class AuthorizationPresenter : MvpBasePresenter<AuthorizationView>() {
 
-    interface Navigator {
-        fun startMainActivity()
+    private val userRepo = App.instance.userRepo
+
+    init {
+        App.instance.getRepositoryComponent().inject(this)
     }
 
-    lateinit var navigator: WeakReference<Navigator>
-
     fun login(login: String, password: String) {
-        val postRequest = (view as AuthorizationActivity).network.post(Post(login, password))
-        postRequest.enqueue(object : retrofit2.Callback<Post> {
-            override fun onFailure(call: Call<Post>, t: Throwable) {
-                if (isViewAttached) {
-                    view?.showError()
+        if (password.isEmpty() || login.isEmpty()
+            || !android.util.Patterns.EMAIL_ADDRESS.matcher(login).matches()
+        ) {
+            view?.showError()
+            return
+        }
+        val result = userRepo.setUser(Post(login, password))
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                run {
+                    view?.showOk()
+                    view?.disappear()
                 }
-            }
+            },
+                { view?.showError() })
+    }
 
-            override fun onResponse(call: Call<Post>, response: Response<Post>) {
-                if (response.code() != 200) {
-                    if (isViewAttached) {
-                        view?.showError()
-                    }
-                    return
-                } else {
-                    if (isViewAttached) {
-                        view?.showOk()
-                    }
-                    val post = response.headers()
-                    val cookie = post.get("Set-Cookie")
-                    SPHandler.setCookie(cookie)
-                    navigator.get()?.startMainActivity()
+    fun tryToEnter() {
+        val result = userRepo.getUser(true)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                if (it != null) {
+                    view?.disappear()
                 }
-            }
-        })
+            }, { })
     }
 }
