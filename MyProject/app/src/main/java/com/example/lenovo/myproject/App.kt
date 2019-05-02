@@ -4,12 +4,14 @@ import android.app.Application
 import com.example.lenovo.myproject.DB.DatabaseModule
 import com.example.lenovo.myproject.lectures.LecturesRepository
 import com.example.lenovo.myproject.lectures.tasks.TasksRepository
+import com.example.lenovo.myproject.profile.ProfileRepository
 import com.example.lenovo.myproject.students.StudentsRepository
 
 class App : Application() {
     private lateinit var lecturesRepo: LecturesRepository
     private lateinit var tasksRepo: TasksRepository
     lateinit var studentsRepo: StudentsRepository
+    lateinit var userRepo: ProfileRepository
     private lateinit var repositoryComponent: RepositoryComponent
 
     override fun onCreate() {
@@ -18,6 +20,7 @@ class App : Application() {
         lecturesRepo = LecturesRepository()
         tasksRepo = TasksRepository()
         studentsRepo = StudentsRepository()
+        userRepo = ProfileRepository()
     }
 
     companion object {
