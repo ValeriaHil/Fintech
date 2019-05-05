@@ -11,16 +11,23 @@ import com.example.lenovo.myproject.dialogs.DialogSaving
 import com.example.lenovo.myproject.fragments.*
 import com.example.lenovo.myproject.lectures.LecturesActivity
 import com.example.lenovo.myproject.profile.ProfileFragment
+import com.example.lenovo.myproject.fragments.ProgressFragment
 import com.example.lenovo.myproject.students.StudentsActivity
 
 class MainActivity : AppCompatActivity(),
     ProfileEditingFragment.ProfileEditingListener, DialogSaving.DialogSavingListener,
     ProgressFragment.ProgressFragmentListener, CoursesFragment.CoursesFragmentListener,
     RatingFragment.RatingFragmentListener {
+    override fun setRefreshing() {
+        swipeRefreshLayout.isRefreshing = true
+    }
+
+    override fun dropRefreshing() {
+        swipeRefreshLayout.isRefreshing = false
+    }
 
     companion object {
         const val ARG_MESSAGE = "ARG_MESSAGE"
-        const val GENERATE_SCORES = 1
     }
 
     private lateinit var currentFragment: Fragment
@@ -62,16 +69,15 @@ class MainActivity : AppCompatActivity(),
             .commit()
         swipeRefreshLayout = findViewById(R.id.swipe_container)
         swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary)
-
         swipeRefreshLayout.setOnRefreshListener {
-            setProgressContacts(progressFragment)
+            progressFragment.loadData(true)
         }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        loadFragment(EventsFragment.newInstance())
+        loadFragment(CoursesFragment.newInstance())
         setToolbar()
         val navigation = findViewById<BottomNavigationView>(R.id.navigation)
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
@@ -133,10 +139,6 @@ class MainActivity : AppCompatActivity(),
     override fun onProgressDetailsButtonClicked() {
         val intent = Intent(this, StudentsActivity::class.java)
         startActivity(intent)
-    }
-
-    override fun setProgressContacts(fragment: ProgressFragment) {
-        swipeRefreshLayout.isRefreshing = false
     }
 
     private fun dataChanged(): Boolean {

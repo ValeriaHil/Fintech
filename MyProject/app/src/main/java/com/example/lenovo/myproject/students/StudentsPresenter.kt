@@ -17,14 +17,28 @@ class StudentsPresenter : MvpBasePresenter<StudentsView>() {
         val result = Observable.combineLatest<List<Student>, User, List<Student>>(
             studentsRepo.getStudents(pullToRefresh),
             userRepo.getUser(pullToRefresh),
-            BiFunction { students: List<Student>, user: User -> filterData(students, user) })
+            BiFunction { students: List<Student>, user: User -> findUser(students, user) })
+        processObservable(result)
+    }
+
+    fun loadStudents(pullToRefresh: Boolean, amount: Long) {
+        val result = Observable.combineLatest<List<Student>, User, List<Student>>(
+            studentsRepo.getStudents(pullToRefresh),
+            userRepo.getUser(pullToRefresh),
+            BiFunction { students: List<Student>, user: User -> findUser(students, user) })
+            .take(amount)
+        processObservable(result)
+    }
+
+    private fun processObservable(observable: Observable<List<Student>>) {
+        val result = observable
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ list: List<Student> -> view?.setData(list) },
                 { error -> view?.showError(error, false) })
     }
 
-    private fun filterData(students: List<Student>, user: User): List<Student> {
+    private fun findUser(students: List<Student>, user: User): List<Student> {
         return students.filter { student -> student.getIntValueOfScores() > 20 }
             .map { student ->
                 if (student.name == user.last_name + " " + user.first_name) {
@@ -32,5 +46,8 @@ class StudentsPresenter : MvpBasePresenter<StudentsView>() {
                 }
                 student
             }
+            .sortedBy { it.scores }
+            .asReversed()
     }
+
 }
