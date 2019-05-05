@@ -25,9 +25,13 @@ class AuthorizationPresenter : MvpBasePresenter<AuthorizationView>() {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                run {
-                    view?.showOk()
-                    view?.disappear()
+                if (it.code() == 200) {
+                    run {
+                        view?.showOk()
+                        view?.disappear()
+                    }
+                } else {
+                    view?.showError()
                 }
             },
                 { view?.showError() })
