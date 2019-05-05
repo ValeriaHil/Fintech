@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment
 import android.support.v4.widget.SwipeRefreshLayout
 import android.widget.EditText
 import com.example.lenovo.myproject.dialogs.DialogSaving
+import com.example.lenovo.myproject.events.ActualEventsFragment
 import com.example.lenovo.myproject.fragments.*
 import com.example.lenovo.myproject.lectures.LecturesActivity
 import com.example.lenovo.myproject.profile.ProfileFragment
@@ -17,7 +18,8 @@ import com.example.lenovo.myproject.students.StudentsActivity
 class MainActivity : AppCompatActivity(),
     ProfileEditingFragment.ProfileEditingListener, DialogSaving.DialogSavingListener,
     ProgressFragment.ProgressFragmentListener, CoursesFragment.CoursesFragmentListener,
-    RatingFragment.RatingFragmentListener {
+    RatingFragment.RatingFragmentListener, EventsFragment.EventsFragmentListener {
+
     override fun setRefreshing() {
         swipeRefreshLayout.isRefreshing = true
     }
@@ -71,6 +73,18 @@ class MainActivity : AppCompatActivity(),
         swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary)
         swipeRefreshLayout.setOnRefreshListener {
             progressFragment.loadData(true)
+        }
+    }
+
+    override fun onEventsCreated() {
+        val actualEvents = ActualEventsFragment.newInstance()
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.actual_events, actualEvents)
+            .commit()
+        swipeRefreshLayout = findViewById(R.id.contentView)
+        swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary)
+        swipeRefreshLayout.setOnRefreshListener {
+            actualEvents.loadData(true)
         }
     }
 

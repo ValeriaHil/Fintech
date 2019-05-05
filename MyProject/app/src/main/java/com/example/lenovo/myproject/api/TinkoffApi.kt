@@ -21,4 +21,7 @@ interface TinkoffApi {
 
     @GET("course/android_spring_2019/grades")
     fun students(@Header("Cookie") cookie: String?): Observable<List<Students>>
+
+    @GET("calendar/list/event")
+    fun events(@Header("Cookie") cookie: String?): Observable<Events>
 }

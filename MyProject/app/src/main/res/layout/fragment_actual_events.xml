@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="260dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="8dp">
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/contentView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include layout="@layout/loading_view" />
+
+        <include layout="@layout/error_view" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/left_indent_line"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.03" />
+
+        <TextView
+            android:id="@+id/tv_actual_events"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="center_vertical|start"
+            android:padding="8dp"
+            android:text="Актуалные"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/line_3"
+            app:layout_constraintEnd_toStartOf="@id/line_1"
+            app:layout_constraintStart_toStartOf="@+id/left_indent_line"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_all"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="center_vertical|end"
+            android:padding="8dp"
+            android:text="Все"
+            android:textColor="@color/colorPrimary"
+            app:layout_constraintBottom_toTopOf="@+id/line_3"
+            app:layout_constraintEnd_toStartOf="@id/right_indent_line"
+            app:layout_constraintStart_toEndOf="@+id/line_1"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_weight="1" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/right_indent_line"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.97" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/line_3"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.28" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/line_1"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.4" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/line_3">
+
+        </android.support.v7.widget.RecyclerView>
+    </android.support.constraint.ConstraintLayout>
+</android.support.v7.widget.CardView>

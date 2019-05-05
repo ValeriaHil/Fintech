@@ -1,16 +1,9 @@
 package com.example.lenovo.myproject
 
-import android.content.Context
 import com.example.lenovo.myproject.DB.*
 import com.example.lenovo.myproject.api.*
 import retrofit2.Call
 import retrofit2.Response
-import android.net.NetworkInfo
-import android.content.Context.CONNECTIVITY_SERVICE
-import android.support.v4.content.ContextCompat.getSystemService
-import android.net.ConnectivityManager
-import android.support.v4.content.ContextCompat.getSystemService
-
 
 object WebService {
 

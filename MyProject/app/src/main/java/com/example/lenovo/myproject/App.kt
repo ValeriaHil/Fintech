@@ -2,6 +2,7 @@ package com.example.lenovo.myproject
 
 import android.app.Application
 import com.example.lenovo.myproject.DB.DatabaseModule
+import com.example.lenovo.myproject.events.EventsRepository
 import com.example.lenovo.myproject.lectures.LecturesRepository
 import com.example.lenovo.myproject.lectures.tasks.TasksRepository
 import com.example.lenovo.myproject.profile.ProfileRepository
@@ -12,6 +13,7 @@ class App : Application() {
     private lateinit var tasksRepo: TasksRepository
     lateinit var studentsRepo: StudentsRepository
     lateinit var userRepo: ProfileRepository
+    lateinit var eventsRepo: EventsRepository
     private lateinit var repositoryComponent: RepositoryComponent
 
     override fun onCreate() {
@@ -21,6 +23,7 @@ class App : Application() {
         tasksRepo = TasksRepository()
         studentsRepo = StudentsRepository()
         userRepo = ProfileRepository()
+        eventsRepo = EventsRepository()
         SPHandler.setCookie("")
     }
 

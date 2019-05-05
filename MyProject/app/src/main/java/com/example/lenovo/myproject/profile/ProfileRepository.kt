@@ -46,7 +46,7 @@ class ProfileRepository {
     }
 
     private fun refreshUser(it: User) {
-        val result = Observable.fromCallable { this.user = it }
+        val result = Observable.fromCallable { synchronized(this) { this.user = it } }
             .doOnNext { timer = System.currentTimeMillis() }
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())

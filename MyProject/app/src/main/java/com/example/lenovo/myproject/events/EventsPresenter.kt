@@ -1,19 +1,19 @@
-package com.example.lenovo.myproject.profile
+package com.example.lenovo.myproject.events
 
 import com.example.lenovo.myproject.App
-import com.example.lenovo.myproject.api.User
+import com.example.lenovo.myproject.api.Event
 import com.hannesdorfmann.mosby.mvp.MvpBasePresenter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class ProfilePresenter : MvpBasePresenter<ProfileView>() {
-    private val repo = App.instance.userRepo
+class EventsPresenter : MvpBasePresenter<EventsView>() {
+    private val repo = App.instance.eventsRepo
 
-    fun loadProfile(pullToRefresh: Boolean) {
-        val result = repo.getUser(pullToRefresh)
+    fun loadEvents() {
+        val result = repo.getActiveEvents()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ user: User -> view?.setData(user) },
+            .subscribe({ events: List<Event> -> view?.setData(events) },
                 { error -> view?.showError(error, false) })
     }
 }
