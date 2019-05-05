@@ -80,12 +80,13 @@ class MainActivity : AppCompatActivity(),
         loadFragment(CoursesFragment.newInstance())
         setToolbar()
         val navigation = findViewById<BottomNavigationView>(R.id.navigation)
+        navigation.selectedItemId = R.id.courses
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
     }
 
     private fun setToolbar() {
         setSupportActionBar(findViewById(R.id.my_toolbar))
-        supportActionBar?.title = resources.getString(R.string.title_events)
+        supportActionBar?.title = resources.getString(R.string.title_courses)
     }
 
     override fun onBackPressed() {
