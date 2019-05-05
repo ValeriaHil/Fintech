@@ -43,6 +43,8 @@
     <string name="login">ЛОГИН</string>
     <string name="password">ПАРОЛЬ</string>
     <string name="enter">ВОЙТИ</string>
+    <string name="actual_events">Актуальные</string>
+    <string name="all">Все</string>
 
     <plurals name="scores_plurals">
         <item quantity="zero">баллов</item>
